@@ -3,13 +3,48 @@
 //BACK END
 function Bookshelf() {
  this.books = [],
- this.currentID = 0
+ this.currentId = 0
 }
 
-function Book(title, author, pubDate, genre = "unknown", review = "") {
+Bookshelf.prototype.assignId = function() {
+  this.currentId += 1;
+  return this.currentId;
+}
+
+Bookshelf.prototype.addBook = function(book) {
+  book.id = this.assignId();
+  this.books.push(book);
+}
+
+Bookshelf.prototype.removeBook = function(id) {
+  for (var i=0; i< this.books.length; i++) {
+    if(this.books[i]){
+      if(this.books[i].id == id) {
+        delete this.books[i];
+        return true;
+      }
+    }
+  }
+  return false;
+}
+
+Bookshelf.prototype.getBookByTitle = function(title) {
+  for (var i = 0; i < this.books.length; i++) {
+    if (this.books[i]) {
+      if (this.books[i].title.toLowerCase() === title.toLowerCase()) {
+        return this.books[i];
+      }
+    }
+  }
+  return false;
+}
+
+function Book(title, author) {
   this.title = title,
   this.author = author,
-  this.pubDate = pubDate,
-  this.genre = genre,
-  this.review = review
+}
+
+Book.prototype.addGenre = function(genre) {
+  this.genre = genre;
+  return genre;
 }
