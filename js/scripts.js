@@ -16,7 +16,7 @@ $(document).ready(function() {
     var reviewInput = $("input#review").val();
     newBook.addReview(reviewInput);
     myBookshelf.addBook(newBook);
-    console.log(myBookshelf);
+    $("#output").append(displayBook(newBook));
 
     $("#addBook").trigger("reset");
   });
@@ -24,13 +24,21 @@ $(document).ready(function() {
   $("#clear").click(function() {
     $("#addBook").trigger("reset");
   });
+
 });
 
-function clearForm() {
-  $("#title").val("");
-  $("#author").val("");
-  $("#pubDate").val("");
-  $("#review").val("");
+function displayBook(bookToDisplay) {
+  var genres = bookToDisplay.genre;
+  var genreListHtml = "";
+  genres.forEach(function(genre) {
+    genreListHtml += "<li>" + genre + "</li>";
+  });
+  var htmlString = "<div class=\"panel panel-default\"><div class=\"panel-heading\"><h2>" + bookToDisplay.title + "</h2></div><div class=\"panel-body\"><p><strong>Author:</strong> " + bookToDisplay.author + "</p><p><strong>Year Published:</strong> " + bookToDisplay.pubDate + "</p><p><strong>Genre(s):</strong></p><ul>" + genreListHtml + "</ul><p><strong>My review:</strong> " + bookToDisplay.review + "</p></div></div>";
+  return htmlString;
+}
+
+function displayShelf() {
+
 }
 
 
