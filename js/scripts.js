@@ -1,7 +1,15 @@
 //FRONT END
 var myBookshelf = new Bookshelf();
 
+function attachContactListeners () {
+  $("#output").on("click", ".deleteButton", function() {
+    myBookshelf.removeBook(this.id);
+    displayShelf(myBookshelf);
+  });
+}
+
 $(document).ready(function() {
+  attachContactListeners();
   $("#addBook").submit(function(event) {
     event.preventDefault();
     var titleInput = $("input#title").val();
@@ -24,7 +32,6 @@ $(document).ready(function() {
   $("#clear").click(function() {
     $("#addBook").trigger("reset");
   });
-
 });
 
 function getBookHtml(bookToDisplay) {
@@ -50,7 +57,7 @@ function getBookHtml(bookToDisplay) {
     });
     genreHtml = "<p><strong>Genre(s):</strong></p><ul>" + genreListHtml + "</ul>";
   }
-  var htmlString = "<div class=\"panel panel-default\"><div class=\"panel-heading\"><h2>" + bookToDisplay.title + "</h2></div><div class=\"panel-body\">" + authorHtml + yearHtml + genreHtml + reviewHtml + "</div></div>";
+  var htmlString = "<div class=\"panel panel-default\"><div class=\"panel-heading\"><h2>" + bookToDisplay.title + "</h2></div><div class=\"panel-body\">" + authorHtml + yearHtml + genreHtml + reviewHtml + "<button class=\"btn btn-info deleteButton\" id=\"" + bookToDisplay.id +  "\">Remove</button></div></div>";
   return htmlString;
 }
 
@@ -62,7 +69,6 @@ function displayShelf(bookshelf) {
    }
  }
 }
-
 
 //BACK END
 function Bookshelf() {
