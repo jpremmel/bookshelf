@@ -1,12 +1,25 @@
 //FRONT END
+var myBookshelf = new Bookshelf();
+
 $(document).ready(function() {
   $("#addBook").submit(function(event) {
     event.preventDefault();
-
-
-
+    var titleInput = $("input#title").val();
+    var authorInput = $("input#author").val();
+    var newBook = new Book(titleInput, authorInput);
+    var dateInput = $("input#pubDate").val();
+    newBook.addPubDate(dateInput);
+    $("input:checkbox:checked").each (function() {
+      var genre = $(this).val();
+      newBook.addGenre(genre);
+    });
+    var reviewInput = $("input#review").val();
+    newBook.addReview(reviewInput);
+    myBookshelf.addBook(newBook);
+    console.log(myBookshelf);
 
   });
+
   $("#clear").click(function() {
 
   });
@@ -70,14 +83,15 @@ Bookshelf.prototype.getBookByTitle = function(title) {
   return false;
 }
 
-function Book(title, author) {
+function Book(title, author, genre = []) {
   this.title = title,
   this.author = author,
+  this.genre = genre
 }
 
 Book.prototype.addGenre = function(genre) {
-  this.genre = genre;
-  return genre;
+  this.genre.push(genre);
+  return this.genre;
 }
 
 Book.prototype.addPubDate = function(pubDate) {
