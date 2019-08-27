@@ -7,7 +7,7 @@ $(document).ready(function() {
     var titleInput = $("input#title").val();
     var authorInput = $("input#author").val();
     var newBook = new Book(titleInput, authorInput);
-    var dateInput = $("input#pubDate").val();
+    var dateInput = parseInt($("input#pubDate").val());
     newBook.addPubDate(dateInput);
     $("input:checkbox:checked").each (function() {
       var genre = $(this).val();
@@ -18,10 +18,11 @@ $(document).ready(function() {
     myBookshelf.addBook(newBook);
     console.log(myBookshelf);
 
+    $("#addBook").trigger("reset");
   });
 
   $("#clear").click(function() {
-
+    $("#addBook").trigger("reset");
   });
 });
 

@@ -15,12 +15,12 @@
         <div class="col-md-6">
           <form id="addBook">
             <label for="title">Title: </label>
-            <input type="text" id="title" class="form-control">
+            <input type="text" id="title" class="form-control" required>
             <label for="author">Author: </label>
             <input type="text" id="author" class="form-control">
             <div class="form-group">
-              <label for="pubDate">Publication Date: </label>
-              <input id="pubDate" class="form-control" type="date">
+              <label for="pubDate">Publication Year: </label>
+              <input id="pubDate" class="form-control" type="number">
             </div>
             <div class="form-group">
               <p>Genre (select all that apply): </p>
@@ -52,7 +52,7 @@
           </form>
           <button class="btn btn-info" id="clear">Clear Form</button>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-6" id="output">
 
         </div>
       </div>
