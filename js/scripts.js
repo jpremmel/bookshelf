@@ -16,6 +16,17 @@ Bookshelf.prototype.addBook = function(book) {
   this.books.push(book);
 }
 
+Bookshelf.prototype.getBook = function(id) {
+  for (var i = 0; i < this.books.length; i++) {
+    if (this.books[i]) {
+      if (this.books[i].id == id) {
+        return this.books[i];
+      }
+    }
+  }
+  return false;
+}
+
 Bookshelf.prototype.removeBook = function(id) {
   for (var i=0; i< this.books.length; i++) {
     if(this.books[i]){
@@ -47,4 +58,13 @@ function Book(title, author) {
 Book.prototype.addGenre = function(genre) {
   this.genre = genre;
   return genre;
+}
+
+Book.prototype.addPubDate = function(pubDate) {
+  this.pubDate = pubDate;
+  return pubDate;
+}
+Book.prototype.addReview = function(review) {
+  this.review = review;
+  return review;
 }
