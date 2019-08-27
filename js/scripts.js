@@ -1,9 +1,23 @@
 //FRONT END
 $(document).ready(function() {
+  $("#addBook").submit(function(event) {
+    event.preventDefault();
 
 
 
+
+  });
+  $("#clear").click(function() {
+
+  });
 });
+
+function clearForm() {
+  $("#title").val("");
+  $("#author").val("");
+  $("#pubDate").val("");
+  $("#review").val("");
+}
 
 
 //BACK END
