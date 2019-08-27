@@ -1,4 +1,10 @@
 //FRONT END
+$(document).ready(function() {
+
+
+
+});
+
 
 //BACK END
 function Bookshelf() {
