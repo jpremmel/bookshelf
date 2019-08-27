@@ -16,7 +16,7 @@ $(document).ready(function() {
     var reviewInput = $("input#review").val();
     newBook.addReview(reviewInput);
     myBookshelf.addBook(newBook);
-    $("#output").append(displayBook(newBook));
+    displayShelf(myBookshelf);
 
     $("#addBook").trigger("reset");
   });
@@ -27,18 +27,40 @@ $(document).ready(function() {
 
 });
 
-function displayBook(bookToDisplay) {
+function getBookHtml(bookToDisplay) {
   var genres = bookToDisplay.genre;
+  var genreHtml = "";
   var genreListHtml = "";
-  genres.forEach(function(genre) {
-    genreListHtml += "<li>" + genre + "</li>";
-  });
-  var htmlString = "<div class=\"panel panel-default\"><div class=\"panel-heading\"><h2>" + bookToDisplay.title + "</h2></div><div class=\"panel-body\"><p><strong>Author:</strong> " + bookToDisplay.author + "</p><p><strong>Year Published:</strong> " + bookToDisplay.pubDate + "</p><p><strong>Genre(s):</strong></p><ul>" + genreListHtml + "</ul><p><strong>My review:</strong> " + bookToDisplay.review + "</p></div></div>";
+  var authorHtml = "";
+  var yearHtml = "";
+  var reviewHtml = "";
+
+  if (bookToDisplay.author) {
+    authorHtml = "<p><strong>Author:</strong> " + bookToDisplay.author + "</p>";
+  }
+  if (bookToDisplay.pubDate){
+    yearHtml = "<p><strong>Year Published:</strong> " + bookToDisplay.pubDate + "</p>";
+  }
+  if (bookToDisplay.review){
+    reviewHtml = "<p><strong>My review:</strong> " + bookToDisplay.review + "</p>";
+  }
+  if (bookToDisplay.genre.length) {
+    genres.forEach(function(genre) {
+      genreListHtml += "<li>" + genre + "</li>";
+    });
+    genreHtml = "<p><strong>Genre(s):</strong></p><ul>" + genreListHtml + "</ul>";
+  }
+  var htmlString = "<div class=\"panel panel-default\"><div class=\"panel-heading\"><h2>" + bookToDisplay.title + "</h2></div><div class=\"panel-body\">" + authorHtml + yearHtml + genreHtml + reviewHtml + "</div></div>";
   return htmlString;
 }
 
-function displayShelf() {
-
+function displayShelf(bookshelf) {
+  $("#output").text("");
+ for (var i = 0; i < bookshelf.books.length; i++) {
+   if (bookshelf.books[i]) {
+     $("#output").append(getBookHtml(bookshelf.books[i]));
+   }
+ }
 }
 
 
